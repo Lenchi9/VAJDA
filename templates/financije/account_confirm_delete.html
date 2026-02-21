@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Brisanje računa</h2>
+
+<p>Jesi li siguran da želiš obrisati račun: <b>{{ object.naziv }}</b>?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Da, obriši</button>
+</form>
+
+<p><a href="{% url 'account_list' %}">Odustani</a></p>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Kategorije</h2>
+
+<p><a href="{% url 'category_create' %}">+ Nova kategorija</a></p>
+
+<ul>
+  {% for c in categories %}
+    <li>
+      {{ c.naziv }} ({{ c.get_tip_display }})
+      — <a href="{% url 'category_update' c.pk %}">Uredi</a>
+      — <a href="{% url 'category_delete' c.pk %}">Obriši</a>
+    </li>
+  {% empty %}
+    <li>Nema kategorija.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

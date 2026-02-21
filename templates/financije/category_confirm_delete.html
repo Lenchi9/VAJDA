@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Brisanje kategorije</h2>
+
+<p>Jesi li siguran da želiš obrisati kategoriju: <b>{{ object.naziv }}</b>?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Da, obriši</button>
+</form>
+
+<p><a href="{% url 'category_list' %}">Odustani</a></p>
+{% endblock %}

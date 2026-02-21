@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Računi</h2>
+
+<p><a href="{% url 'account_create' %}">+ Novi račun</a></p>
+
+<ul>
+  {% for a in accounts %}
+    <li>
+      {{ a.naziv }} ({{ a.get_tip_display }}) - {{ a.pocetno_stanje }} €
+      — <a href="{% url 'account_update' a.pk %}">Uredi</a>
+      — <a href="{% url 'account_delete' a.pk %}">Obriši</a>
+    </li>
+  {% empty %}
+    <li>Nema računa.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

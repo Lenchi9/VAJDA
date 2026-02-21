@@ -7,7 +7,9 @@
 <body>
 
 <nav>
-    <a href="/">Transakcije</a>
+    <a href="/">Transakcije</a> |
+    <a href="{% url 'account_list' %}">Računi</a> |
+    <a href="{% url 'category_list' %}">Kategorije</a>
 
     {% if user.is_authenticated %}
         | 
