@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Brisanje transakcije</h2>
+
+<p>Jesi li siguran da želiš obrisati ovu transakciju?</p>
+
+<ul>
+    <li>Datum: {{ object.datum }}</li>
+    <li>Iznos: {{ object.iznos }} €</li>
+    <li>Kategorija: {{ object.category.naziv }}</li>
+</ul>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Da, obriši</button>
+</form>
+
+<p><a href="{% url 'transaction_detail' object.pk %}">Odustani</a></p>
+{% endblock %}

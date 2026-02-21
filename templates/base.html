@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Upravljanje financijama</title>
+</head>
+<body>
+
+<nav>
+    <a href="/">Transakcije</a>
+
+    {% if user.is_authenticated %}
+        | 
+        <form action="/accounts/logout/" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Odjava</button>
+        </form>
+    {% else %}
+        | <a href="/accounts/login/">Prijava</a>
+        | <a href="/register/">Registracija</a>
+    {% endif %}
+</nav>
+
+<hr>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

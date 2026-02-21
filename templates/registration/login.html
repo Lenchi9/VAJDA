@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Prijava</h2>
+
+{% if form.errors %}
+    <p style="color:red;">Pogrešno korisničko ime ili lozinka.</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Prijavi se</button>
+</form>
+
+<p>
+    Nemaš račun? <a href="/register/">Registriraj se</a>
+</p>
+{% endblock %}

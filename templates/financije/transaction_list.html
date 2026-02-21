@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Popis transakcija</h2>
+
+<p>
+    <a href="{% url 'transaction_create' %}">+ Nova transakcija</a>
+</p>
+
+<form method="get" style="margin-bottom: 12px;">
+    <input type="text" name="q" placeholder="Pretraga po opisu..." value="{{ request.GET.q }}">
+    <button type="submit">Traži</button>
+</form>
+
+<ul>
+    {% for t in transactions %}
+        <li>
+            <a href="{% url 'transaction_detail' t.pk %}">
+                {{ t.datum }} - {{ t.iznos }} € ({{ t.category.naziv }})
+            </a>
+            — <a href="{% url 'transaction_update' t.pk %}">Uredi</a>
+            — <a href="{% url 'transaction_delete' t.pk %}">Obriši</a>
+        </li>
+    {% empty %}
+        <li>Nema transakcija.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
