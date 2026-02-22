@@ -1,31 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="hr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upravljanje financijama</title>
+
+    <!-- Modern font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
 
-<nav>
-    <a href="/">Transakcije</a> |
-    <a href="{% url 'account_list' %}">Računi</a> |
-    <a href="{% url 'category_list' %}">Kategorije</a>
+<header class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <a href="/">💰 Financije</a>
+        </div>
 
-    {% if user.is_authenticated %}
-        | 
-        <form action="/accounts/logout/" method="post" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">Odjava</button>
-        </form>
-    {% else %}
-        | <a href="/accounts/login/">Prijava</a>
-        | <a href="/register/">Registracija</a>
-    {% endif %}
-</nav>
+        <nav class="nav-links">
+            <a href="/">Transakcije</a>
+            <a href="{% url 'account_list' %}">Računi</a>
+            <a href="{% url 'category_list' %}">Kategorije</a>
+        </nav>
 
-<hr>
+        <div class="auth-section">
+            {% if user.is_authenticated %}
+                <span class="username">{{ user.username }}</span>
+                <form action="/accounts/logout/" method="post" class="inline-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-outline">Odjava</button>
+                </form>
+            {% else %}
+                <a class="btn-outline" href="/accounts/login/">Prijava</a>
+                <a class="btn-primary" href="/register/">Registracija</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
 
-{% block content %}{% endblock %}
+<main class="main-container">
+    {% block content %}{% endblock %}
+</main>
 
 </body>
 </html>

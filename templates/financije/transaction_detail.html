@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Detalji transakcije</h2>
+<div class="card">
+  <h2>Detalji transakcije</h2>
 
-<p><b>Datum:</b> {{ object.datum }}</p>
-<p><b>Iznos:</b> {{ object.iznos }} €</p>
-<p><b>Račun:</b> {{ object.account.naziv }}</p>
-<p><b>Kategorija:</b> {{ object.category.naziv }}</p>
-<p><b>Opis:</b> {{ object.opis }}</p>
+  <p><b>Datum:</b> {{ object.datum }}</p>
+  <p><b>Iznos:</b> {{ object.iznos }} €</p>
+  <p><b>Račun:</b> {{ object.account.naziv }}</p>
+  <p><b>Kategorija:</b> {{ object.category.naziv }}</p>
+  <p><b>Opis:</b> {{ object.opis }}</p>
 
-<p>
-    <a href="{% url 'transaction_update' object.pk %}">Uredi</a> |
-    <a href="{% url 'transaction_delete' object.pk %}">Obriši</a>
-</p>
-
-<p><a href="{% url 'transaction_list' %}">← Natrag</a></p>
+  <div class="form-actions">
+    <a class="btn btn-ghost" href="{% url 'transaction_update' object.pk %}">Uredi</a>
+    <a class="btn btn-danger" href="{% url 'transaction_delete' object.pk %}">Obriši</a>
+    <a class="btn btn-ghost" href="{% url 'transaction_list' %}">← Natrag</a>
+  </div>
+</div>
 {% endblock %}

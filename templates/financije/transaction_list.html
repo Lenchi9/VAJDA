@@ -1,28 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Popis transakcija</h2>
+<div class="card">
+    <h2>Transakcije</h2>
 
-<p>
-    <a href="{% url 'transaction_create' %}">+ Nova transakcija</a>
-</p>
+    <a href="{% url 'transaction_create' %}" class="btn-primary">+ Nova transakcija</a>
 
-<form method="get" style="margin-bottom: 12px;">
-    <input type="text" name="q" placeholder="Pretraga po opisu..." value="{{ request.GET.q }}">
-    <button type="submit">Traži</button>
-</form>
+    <form method="get" class="searchbar">
+        <input type="text" name="q" placeholder="Pretraži po opisu..." value="{{ request.GET.q }}">
+        <button type="submit" class="btn-outline">Traži</button>
+    </form>
 
-<ul>
-    {% for t in transactions %}
-        <li>
-            <a href="{% url 'transaction_detail' t.pk %}">
-                {{ t.datum }} - {{ t.iznos }} € ({{ t.category.naziv }})
-            </a>
-            — <a href="{% url 'transaction_update' t.pk %}">Uredi</a>
-            — <a href="{% url 'transaction_delete' t.pk %}">Obriši</a>
-        </li>
-    {% empty %}
-        <li>Nema transakcija.</li>
-    {% endfor %}
-</ul>
+    <ul class="list">
+        {% for t in transactions %}
+            <li class="list-item">
+                <div>
+                    <strong>{{ t.datum }}</strong> – {{ t.iznos }} € <br>
+                    <small>{{ t.category.naziv }} | {{ t.account.naziv }}</small><br>
+                    {{ t.opis }}
+                </div>
+                <div>
+                    <a href="{% url 'transaction_update' t.pk %}" class="btn-outline">Uredi</a>
+                    <a href="{% url 'transaction_delete' t.pk %}" class="btn-danger">Obriši</a>
+                </div>
+            </li>
+        {% empty %}
+            <li>Nema transakcija.</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

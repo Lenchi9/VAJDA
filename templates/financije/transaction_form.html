@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{% if object %}Uredi transakciju{% else %}Nova transakcija{% endif %}</h2>
+<div class="card">
+  <h2>{% if object %}Uredi transakciju{% else %}Nova transakcija{% endif %}</h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Spremi</button>
-</form>
-
-<p><a href="{% url 'transaction_list' %}">← Natrag</a></p>
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="form-actions">
+        <button class="btn" type="submit">Spremi</button>
+        <a class="btn btn-ghost" href="{% url 'transaction_list' %}">Odustani</a>
+      </div>
+  </form>
+</div>
 {% endblock %}

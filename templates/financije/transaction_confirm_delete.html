@@ -1,20 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Brisanje transakcije</h2>
+<div class="card">
+  <h2>Brisanje transakcije</h2>
 
-<p>Jesi li siguran da želiš obrisati ovu transakciju?</p>
+  <p>Jesi li siguran da želiš obrisati ovu transakciju?</p>
 
-<ul>
-    <li>Datum: {{ object.datum }}</li>
-    <li>Iznos: {{ object.iznos }} €</li>
-    <li>Kategorija: {{ object.category.naziv }}</li>
-</ul>
+  <ul class="list">
+    <li class="list-item"><span>Datum</span><b>{{ object.datum }}</b></li>
+    <li class="list-item"><span>Iznos</span><b>{{ object.iznos }} €</b></li>
+    <li class="list-item"><span>Kategorija</span><b>{{ object.category.naziv }}</b></li>
+  </ul>
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Da, obriši</button>
-</form>
-
-<p><a href="{% url 'transaction_detail' object.pk %}">Odustani</a></p>
+  <form method="post" style="margin-top: 12px;">
+      {% csrf_token %}
+      <div class="form-actions">
+        <button class="btn btn-danger" type="submit">Da, obriši</button>
+        <a class="btn btn-ghost" href="{% url 'transaction_detail' object.pk %}">Odustani</a>
+      </div>
+  </form>
+</div>
 {% endblock %}
