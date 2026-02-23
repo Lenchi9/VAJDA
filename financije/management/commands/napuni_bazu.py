@@ -27,7 +27,6 @@ class Command(BaseCommand):
             user.set_password("admin12345")
             user.is_staff = True
             user.is_superuser = True
-            user.email = "admin@example.com"
             user.save()
 
         for _ in range(options["accounts"]):
