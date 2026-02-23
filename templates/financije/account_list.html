@@ -1,19 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Računi</h2>
 
-<p><a href="{% url 'account_create' %}">+ Novi račun</a></p>
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-semibold">Računi</h2>
+    <a href="{% url 'account_create' %}"
+       class="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700">
+      + Novi račun
+    </a>
+  </div>
 
-<ul>
-  {% for a in accounts %}
-    <li>
-      {{ a.naziv }} ({{ a.get_tip_display }}) - {{ a.pocetno_stanje }} €
-      — <a href="{% url 'account_update' a.pk %}">Uredi</a>
-      — <a href="{% url 'account_delete' a.pk %}">Obriši</a>
-    </li>
-  {% empty %}
-    <li>Nema računa.</li>
-  {% endfor %}
-</ul>
+  <div class="divide-y divide-slate-200">
+    {% for a in accounts %}
+      <div class="py-4 flex justify-between items-center">
+        <div>
+          <p class="font-medium">{{ a.naziv }}</p>
+          <p class="text-sm text-slate-600">
+            {{ a.get_tip_display }} • {{ a.pocetno_stanje }} €
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <a href="{% url 'account_update' a.pk %}"
+             class="px-3 py-2 rounded-xl border border-slate-300 hover:bg-slate-50 text-sm">
+            Uredi
+          </a>
+          <a href="{% url 'account_delete' a.pk %}"
+             class="px-3 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 text-sm">
+            Obriši
+          </a>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-slate-600">Nema računa.</p>
+    {% endfor %}
+  </div>
+</div>
 
 {% endblock %}

@@ -1,15 +1,28 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h2>Registracija</h2>
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 max-w-md mx-auto">
+  <h2 class="text-xl font-semibold mb-4">Registracija</h2>
 
-<form method="post">
+  {% if form.errors %}
+    <div class="mb-4 p-3 rounded-xl bg-red-50 text-red-700 border border-red-200 text-sm">
+      Provjeri unos — postoji greška u registraciji.
+      {{ form.errors }}
+    </div>
+  {% endif %}
+
+  <form method="post" class="space-y-4">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Registriraj se</button>
-</form>
+    <div class="space-y-3">
+      {{ form.as_p }}
+    </div>
 
-<p>
-    Već imaš račun? <a href="/accounts/login/">Prijavi se</a>
-</p>
+    <button type="submit" class="w-full px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700">
+      Registriraj se
+    </button>
+  </form>
+
+  <p class="mt-4 text-sm text-slate-600">
+    Već imaš račun? <a class="text-blue-600 hover:underline" href="/accounts/login/">Prijavi se</a>
+  </p>
+</div>
 {% endblock %}

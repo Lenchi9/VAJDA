@@ -1,48 +1,52 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="hr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upravljanje financijama</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upravljanje financijama</title>
 
-    <!-- Modern font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
-<header class="navbar">
-    <div class="nav-container">
-        <div class="logo">
-            <a href="/">💰 Financije</a>
-        </div>
+<body class="bg-slate-50 text-slate-900">
+  <header class="bg-slate-900 text-white sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+      <a href="/" class="font-semibold text-lg tracking-tight">💰 Financije</a>
 
-        <nav class="nav-links">
-            <a href="/">Transakcije</a>
-            <a href="{% url 'account_list' %}">Računi</a>
-            <a href="{% url 'category_list' %}">Kategorije</a>
-        </nav>
+      <nav class="flex items-center gap-2 sm:gap-4 text-sm">
+        <a href="/" class="px-3 py-2 rounded-lg hover:bg-white/10">Transakcije</a>
+        <a href="{% url 'account_list' %}" class="px-3 py-2 rounded-lg hover:bg-white/10">Računi</a>
+        <a href="{% url 'category_list' %}" class="px-3 py-2 rounded-lg hover:bg-white/10">Kategorije</a>
+      </nav>
 
-        <div class="auth-section">
-            {% if user.is_authenticated %}
-                <span class="username">{{ user.username }}</span>
-                <form action="/accounts/logout/" method="post" class="inline-form">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-outline">Odjava</button>
-                </form>
-            {% else %}
-                <a class="btn-outline" href="/accounts/login/">Prijava</a>
-                <a class="btn-primary" href="/register/">Registracija</a>
-            {% endif %}
-        </div>
+      <div class="flex items-center gap-2">
+        {% if user.is_authenticated %}
+          <span class="hidden sm:inline text-sm text-white/70">👤 {{ user.username }}</span>
+
+          <form action="/accounts/logout/" method="post">
+            {% csrf_token %}
+            <button type="submit"
+              class="text-sm px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10">
+              Odjava
+            </button>
+          </form>
+        {% else %}
+          <a href="/accounts/login/"
+             class="text-sm px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10">
+            Prijava
+          </a>
+          <a href="/register/"
+             class="text-sm px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700">
+            Registracija
+          </a>
+        {% endif %}
+      </div>
     </div>
-</header>
+  </header>
 
-<main class="main-container">
+  <main class="max-w-5xl mx-auto px-4 py-8">
     {% block content %}{% endblock %}
-</main>
-
+  </main>
 </body>
 </html>

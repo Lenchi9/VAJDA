@@ -1,12 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>{% if object %}Uredi račun{% else %}Novi račun{% endif %}</h2>
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Spremi</button>
-</form>
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 max-w-xl">
+  <h2 class="text-xl font-semibold mb-4">
+    {% if object %}Uredi račun{% else %}Novi račun{% endif %}
+  </h2>
 
-<p><a href="{% url 'account_list' %}">← Natrag</a></p>
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="flex gap-2">
+      <button type="submit"
+              class="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700">
+        Spremi
+      </button>
+      <a href="{% url 'account_list' %}"
+         class="px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-50">
+        Odustani
+      </a>
+    </div>
+  </form>
+</div>
+
 {% endblock %}

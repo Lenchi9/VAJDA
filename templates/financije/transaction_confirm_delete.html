@@ -1,23 +1,30 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="card">
-  <h2>Brisanje transakcije</h2>
 
-  <p>Jesi li siguran da želiš obrisati ovu transakciju?</p>
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 max-w-md">
+  <h2 class="text-xl font-semibold mb-4 text-red-600">Obriši transakciju</h2>
 
-  <ul class="list">
-    <li class="list-item"><span>Datum</span><b>{{ object.datum }}</b></li>
-    <li class="list-item"><span>Iznos</span><b>{{ object.iznos }} €</b></li>
-    <li class="list-item"><span>Kategorija</span><b>{{ object.category.naziv }}</b></li>
-  </ul>
+  <p class="text-sm text-slate-600 mb-4">
+    Jesi li siguran da želiš obrisati ovu transakciju?
+  </p>
 
-  <form method="post" style="margin-top: 12px;">
-      {% csrf_token %}
-      <div class="form-actions">
-        <button class="btn btn-danger" type="submit">Da, obriši</button>
-        <a class="btn btn-ghost" href="{% url 'transaction_detail' object.pk %}">Odustani</a>
-      </div>
+  <div class="bg-slate-50 rounded-xl p-4 text-sm mb-4">
+    <p><strong>{{ object.datum }}</strong></p>
+    <p>{{ object.iznos }} €</p>
+    <p>{{ object.category.naziv }}</p>
+  </div>
+
+  <form method="post" class="flex gap-2">
+    {% csrf_token %}
+    <button type="submit"
+            class="px-4 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700">
+      Da, obriši
+    </button>
+    <a href="{% url 'transaction_detail' object.pk %}"
+       class="px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-50">
+      Odustani
+    </a>
   </form>
 </div>
+
 {% endblock %}

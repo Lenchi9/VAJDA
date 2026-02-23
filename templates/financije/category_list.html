@@ -1,19 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Kategorije</h2>
 
-<p><a href="{% url 'category_create' %}">+ Nova kategorija</a></p>
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-semibold">Kategorije</h2>
+    <a href="{% url 'category_create' %}"
+       class="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700">
+      + Nova kategorija
+    </a>
+  </div>
 
-<ul>
-  {% for c in categories %}
-    <li>
-      {{ c.naziv }} ({{ c.get_tip_display }})
-      — <a href="{% url 'category_update' c.pk %}">Uredi</a>
-      — <a href="{% url 'category_delete' c.pk %}">Obriši</a>
-    </li>
-  {% empty %}
-    <li>Nema kategorija.</li>
-  {% endfor %}
-</ul>
+  <div class="divide-y divide-slate-200">
+    {% for c in categories %}
+      <div class="py-4 flex justify-between items-center">
+        <div>
+          <p class="font-medium">{{ c.naziv }}</p>
+          <p class="text-sm text-slate-600">{{ c.get_tip_display }}</p>
+        </div>
+        <div class="flex gap-2">
+          <a href="{% url 'category_update' c.pk %}"
+             class="px-3 py-2 rounded-xl border border-slate-300 hover:bg-slate-50 text-sm">
+            Uredi
+          </a>
+          <a href="{% url 'category_delete' c.pk %}"
+             class="px-3 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 text-sm">
+            Obriši
+          </a>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-slate-600">Nema kategorija.</p>
+    {% endfor %}
+  </div>
+</div>
 
 {% endblock %}

@@ -1,16 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card">
-  <h2>{% if object %}Uredi transakciju{% else %}Nova transakcija{% endif %}</h2>
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 max-w-2xl">
+  <h2 class="text-xl font-semibold mb-4">
+    {% if object %}Uredi transakciju{% else %}Nova transakcija{% endif %}
+  </h2>
 
-  <form method="post">
-      {% csrf_token %}
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+
+    <!-- Django form.as_p je ok, ali izgleda lošije s Tailwindom.
+         Za sada ga ostavimo, a kasnije možemo ručno renderati polja. -->
+    <div class="space-y-3">
       {{ form.as_p }}
-      <div class="form-actions">
-        <button class="btn" type="submit">Spremi</button>
-        <a class="btn btn-ghost" href="{% url 'transaction_list' %}">Odustani</a>
-      </div>
+    </div>
+
+    <div class="flex gap-2">
+      <button type="submit" class="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700">
+        Spremi
+      </button>
+      <a href="{% url 'transaction_list' %}" class="px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-50">
+        Odustani
+      </a>
+    </div>
   </form>
 </div>
 {% endblock %}
